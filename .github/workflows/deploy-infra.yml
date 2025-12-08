@@ -13,4 +13,5 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy
         run: |
+          az group create --name rg --location austriaeast
           az deployment group create --resource-group rg --template-file infra/infra.bicep
