@@ -35,3 +35,12 @@ resource acr 'Microsoft.ContainerRegistry/registries@2025-11-01' = {
     name: 'Basic'
   }
 }
+
+resource acrPullAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
+  name: guid(acr.id, app.id, 'acrpull')
+  scope: acr
+  properties: {
+    roleDefinitionId: subscriptionResourceId('Microsoft.Authorization/roleDefinitions', '7f951dda-4ed3-4680-a7ca-43fe172d538d')
+    principalId: app.identity.principalId
+  }
+}
