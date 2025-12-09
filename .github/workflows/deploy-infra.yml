@@ -6,9 +6,6 @@ on:
       groupName: 
         description: "Resource Group Name"
         default: "rg"
-      imageName:
-        description: "Default Image of App"
-        default: "nginx:latest"
 
 jobs:
   deploy:
@@ -24,5 +21,4 @@ jobs:
           az group create --name ${{ github.event.inputs.groupName }} --location austriaeast
           az deployment group create \
             --resource-group ${{ github.event.inputs.groupName }} \
-            --template-file infra/infra.bicep \
-            --parameters imageName=${{ github.event.inputs.imageName }}
+            --template-file infra/infra.bicep

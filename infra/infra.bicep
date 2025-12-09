@@ -1,6 +1,3 @@
-@description('Default docker image used for the app')
-param imageName string = 'nginx:latest'
-
 var acrname = 'alido${resourceGroup().name}acr'
 var appname = 'alido${resourceGroup().name}app'
 
@@ -22,7 +19,7 @@ resource app 'Microsoft.Web/sites@2025-03-01' = {
   properties: {
     serverFarmId: plan.id
     siteConfig:{
-      linuxFxVersion: 'DOCKER|${acrname}.azurecr.io/${imageName}' // this is refering to container registry
+      linuxFxVersion: 'DOCKER|${acrname}.azurecr.io/nginx:latest' // this is refering to container registry
       acrUseManagedIdentityCreds: true // this means the web app should use system assigned identity for authentication. An AcrPull role is assigned automatically in ACR with this.
     }
   }
