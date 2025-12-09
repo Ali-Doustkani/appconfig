@@ -1,5 +1,6 @@
 param imageName string = 'nginx:latest'
-var acrname = 'alidoacr'
+var acrname = 'alidoacr-${uniqueString(resourceGroup().id)}'
+var appname = 'alido-${uniqueString(resourceGroup().id)}'
 
 resource plan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: 'linux'
@@ -14,7 +15,7 @@ resource plan 'Microsoft.Web/serverfarms@2023-12-01' = {
 }
 
 resource app 'Microsoft.Web/sites@2025-03-01' = {
-  name: 'alidoapp1'
+  name: appname
   location: resourceGroup().location
   properties: {
     serverFarmId: plan.id
@@ -35,3 +36,6 @@ resource acr 'Microsoft.ContainerRegistry/registries@2025-11-01' = {
     name: 'Basic'
   }
 }
+
+output ACR string = acrname
+output AppName string = appname
