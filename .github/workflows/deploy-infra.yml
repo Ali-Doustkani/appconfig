@@ -2,6 +2,11 @@ name: Deploy Infra
 
 on:
   workflow_dispatch:
+    inputs:
+      groupName: 
+        description: "Resource Group Name"
+        required: true
+        default: "rg"
 
 jobs:
   deploy:
