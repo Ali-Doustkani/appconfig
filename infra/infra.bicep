@@ -1,6 +1,8 @@
+@description('Default docker image used for the app')
 param imageName string = 'nginx:latest'
-var acrname = 'alidoacr${uniqueString(resourceGroup().id)}'
-var appname = 'alido${uniqueString(resourceGroup().id)}'
+
+var acrname = 'alido${resourceGroup().name}acr'
+var appname = 'alido${resourceGroup().name}app'
 
 resource plan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: 'linux'
@@ -36,6 +38,3 @@ resource acr 'Microsoft.ContainerRegistry/registries@2025-11-01' = {
     name: 'Basic'
   }
 }
-
-output ACR string = acrname
-output AppName string = appname
