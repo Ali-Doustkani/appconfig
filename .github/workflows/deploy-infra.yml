@@ -21,4 +21,13 @@ jobs:
           az group create --name ${{ github.event.inputs.groupName }} --location austriaeast
           az deployment group create \
             --resource-group ${{ github.event.inputs.groupName }} \
-            --template-file infra/infra.bicep
+            --template-file infra/infra.bicep \
+            --query "properties.outputs" \
+            --output json > outputs.json
+      - name: Test
+        run: |
+          echo "Printing Deployment Outputs"
+          cat outputs.json
+
+          # echo "Importing nginx into ACR"
+          # az acr import --name alidorg6acr --source docker.io/library/nginx:latest --image nginx:latest

@@ -44,3 +44,5 @@ resource acrPullAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' 
     principalId: app.identity.principalId
   }
 }
+
+output appServiceName string = app.name
