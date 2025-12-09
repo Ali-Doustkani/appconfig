@@ -1,6 +1,6 @@
 param imageName string = 'nginx:latest'
-var acrname = 'alidoacr-${uniqueString(resourceGroup().id)}'
-var appname = 'alido-${uniqueString(resourceGroup().id)}'
+var acrname = 'alidoacr${uniqueString(resourceGroup().id)}'
+var appname = 'alido${uniqueString(resourceGroup().id)}'
 
 resource plan 'Microsoft.Web/serverfarms@2023-12-01' = {
   name: 'linux'
