@@ -26,12 +26,16 @@ jobs:
             --output json > outputs.json
       - name: Test
         run: |
-          echo "Printing Deployment Outputs"
-          cat outputs.json
+          # read installed infra properties
+          acrName=$(jq ".acrName.value" ./outputs.json)
+          echo acrName = $acrName
+          appServiceName=$(jq ".appServiceName" ./outputs.json)
+          echo appServiceName = $appServiceName
+          url="https://${appServiceName}.azurewebsites.com"
+          echo url = $url
 
           echo "Importing nginx into ACR"
           az acr import --name alidorg6acr --source docker.io/library/nginx:latest --image nginx:latest
-          appServiceName=$(jq ".appServiceName" ./outputs.json)
           echo appServiceName = $appServiceName
           # read output json file and reset the proper app service
           # implement the test  

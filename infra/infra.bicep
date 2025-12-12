@@ -45,4 +45,5 @@ resource acrPullAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' 
   }
 }
 
+output acrName string = acrname
 output appServiceName string = app.name
