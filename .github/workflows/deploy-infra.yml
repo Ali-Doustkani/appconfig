@@ -18,14 +18,7 @@ jobs:
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy
-        run: |
-          echo "Deploying in resource group '${{ github.event.inputs.groupName }}'"
-          az group create --name ${{ github.event.inputs.groupName }} --location austriaeast --tag version=${{ github.sha }}
-          az deployment group create \
-            --resource-group ${{ github.event.inputs.groupName }} \
-            --template-file infra/infra.bicep \
-            --query "properties.outputs" \
-            --output json > outputs.json
+        run: ./scripts/deployinfra.sh ${{ github.sha }} ${{ github.event.inputs.groupName }}
       - name: Test
         run: |
           # read installed infra properties
