@@ -27,9 +27,9 @@ jobs:
       - name: Test
         run: |
           # read installed infra properties
-          acrName=$(jq ".acrName.value" ./outputs.json)
+          acrName=$(jq --raw-output ".acrName.value" ./outputs.json)
           echo acrName = $acrName
-          appServiceName=$(jq ".appServiceName.value" ./outputs.json)
+          appServiceName=$(jq --raw-output ".appServiceName.value" ./outputs.json)
           echo appServiceName = $appServiceName
           url="https://${appServiceName}.azurewebsites.com"
           echo url = $url
