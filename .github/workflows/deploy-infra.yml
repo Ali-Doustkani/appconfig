@@ -20,7 +20,7 @@ jobs:
       - name: Deploy
         run: |
           echo "Deploying in resource group '${{ github.event.inputs.groupName }}'"
-          az group create --name ${{ github.event.inputs.groupName }} --location austriaeast --tag version=${{ github.shah }}
+          az group create --name ${{ github.event.inputs.groupName }} --location austriaeast --tag version=${{ github.sha }}
           az deployment group create \
             --resource-group ${{ github.event.inputs.groupName }} \
             --template-file infra/infra.bicep \
