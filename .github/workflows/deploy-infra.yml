@@ -29,13 +29,13 @@ jobs:
           # read installed infra properties
           acrName=$(jq ".acrName.value" ./outputs.json)
           echo acrName = $acrName
-          appServiceName=$(jq ".appServiceName" ./outputs.json)
+          appServiceName=$(jq ".appServiceName.value" ./outputs.json)
           echo appServiceName = $appServiceName
           url="https://${appServiceName}.azurewebsites.com"
           echo url = $url
 
           echo "Importing nginx into ACR"
-          az acr import --name alidorg6acr --source docker.io/library/nginx:latest --image nginx:latest
+          az acr import --name $acrName --source docker.io/library/nginx:latest --image nginx:latest
           echo appServiceName = $appServiceName
           # read output json file and reset the proper app service
           # implement the test  
