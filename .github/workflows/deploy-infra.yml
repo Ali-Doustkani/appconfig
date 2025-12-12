@@ -27,6 +27,8 @@ jobs:
       - name: Test
         run: |
           # read installed infra properties
+          group=${{ github.event.inputs.groupName }}
+          echo group = $group
           acrName=$(jq --raw-output ".acrName.value" ./outputs.json)
           echo acrName = $acrName
           appServiceName=$(jq --raw-output ".appServiceName.value" ./outputs.json)
@@ -37,5 +39,5 @@ jobs:
           echo "Importing nginx into ACR"
           az acr import --name $acrName --source docker.io/library/nginx:latest --image nginx:latest
           
-          # read output json file and reset the proper app service
-          # implement the test  
+          echo "Restarting App Service"
+          az webapp restart --name $appServiceName --resource-group $group
