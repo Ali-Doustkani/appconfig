@@ -31,11 +31,11 @@ jobs:
           echo acrName = $acrName
           appServiceName=$(jq --raw-output ".appServiceName.value" ./outputs.json)
           echo appServiceName = $appServiceName
-          url="https://${appServiceName}.azurewebsites.com"
+          url="https://${appServiceName}.azurewebsites.net"
           echo url = $url
 
           echo "Importing nginx into ACR"
           az acr import --name $acrName --source docker.io/library/nginx:latest --image nginx:latest
-          echo appServiceName = $appServiceName
+          
           # read output json file and reset the proper app service
           # implement the test  
