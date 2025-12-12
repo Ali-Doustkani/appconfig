@@ -1,6 +1,9 @@
 name: Deploy Infra
 
-run-name: ${{ github.ref_name }}
+env:
+  SHA: ${{ github.sha.substring(0, 7) }}
+
+run-name: ${{ env.SHA }}
 
 on:
   workflow_dispatch:
