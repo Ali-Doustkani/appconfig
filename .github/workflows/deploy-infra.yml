@@ -41,3 +41,6 @@ jobs:
           
           echo "Restarting App Service"
           az webapp restart --name $appServiceName --resource-group $group
+
+          echo "Testing"
+          curl -i $url
