@@ -1,4 +1,4 @@
 #!/bin/sh
-
-# run ssh daemon in foreground
-/usr/sbin/sshd -D
+/usr/sbin/sshd
+mkdir -p /var/www/localhost/htdocs && echo "HTTP OK" > /var/www/localhost/htdocs/index.html
+lighttpd -D -f /etc/lighttpd/lighttpd.conf
