@@ -16,6 +16,7 @@ az acr import --name $acrName --source docker.io/alidoustkani/infratest:6 --imag
 echo "Restarting app '$appServiceName'"
 az webapp restart --name $appServiceName --resource-group $groupName
 
+# TEST CONTAINER RUN
 timeout=100 #timeout in seconds
 httpcode=$(curl --connect-timeout $timeout -i $url | head -n 1)
 if [[ "$httpcode" == *"200 OK"* ]]; then
