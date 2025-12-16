@@ -11,7 +11,7 @@ url="https://${appServiceName}.azurewebsites.net"
 echo "Testing app '$url'"
 
 echo "Importing test image into registry '$acrName'"
-az acr import --name $acrName --source docker.io/library/alidoustkani/testversion:6 --image nginx:testversion
+az acr import --name $acrName --source docker.io/alidoustkani/infratest:6 --image infratest:testversion
 
 echo "Restarting app '$appServiceName'"
 az webapp restart --name $appServiceName --resource-group $groupName
