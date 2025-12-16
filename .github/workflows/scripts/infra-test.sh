@@ -14,7 +14,7 @@ az acr import --name $acrName --source docker.io/alidoustkani/infratest:6 --imag
 echo "Restarting app '$appServiceName'"
 az webapp restart --name $appServiceName --resource-group $groupName
 
-source ./infra-test-webapp.sh
-source ./infra-test-appconfig.sh
+source ./.github/workflows/scripts/infra-test-webapp.sh
+source ./.github/workflows/scripts/infra-test-appconfig.sh
 
 test_webapp $appServiceName
