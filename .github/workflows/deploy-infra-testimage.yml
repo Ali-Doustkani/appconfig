@@ -7,8 +7,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: docker/login-action@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Docker Login
+        uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
@@ -18,4 +20,4 @@ jobs:
         with:
           context: ./infra
           push: true
-          tags: ghcr.io/${{ github.repository }}:latest
+          tags: ghcr.io/ali-doustkani/infratest:latest
