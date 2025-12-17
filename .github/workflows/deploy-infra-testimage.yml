@@ -1,7 +1,6 @@
 name: Infra TestApp
 
 run-name: ${{ github.sha }}
-
 on:
   workflow_dispatch:
 
@@ -23,8 +22,8 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v5
         with:
-          context: ./infra
+          context: ./infra/testapp
           push: true
           tags: |
-            ghcr.io/ali-doustkani/infratest:latest
-            ghcr.io/ali-doustkani/infratest:${{ github.sha }}
+            ghcr.io/ali-doustkani/testapp:latest
+            ghcr.io/ali-doustkani/testapp:${{ github.sha }}
