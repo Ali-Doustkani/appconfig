@@ -9,7 +9,7 @@ if (!string.IsNullOrEmpty(appConfigEndpoint))
     builder.Configuration.AddAzureAppConfiguration(options =>
     {
         options.Connect(
-            new Uri($"https://{appConfigEndpoint}.azconfig.io"),
+            new Uri(appConfigEndpoint),
             new DefaultAzureCredential())
         .Select("*");
     });
