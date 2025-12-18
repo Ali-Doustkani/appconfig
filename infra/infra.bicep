@@ -87,4 +87,3 @@ resource configDataReaderAssignment 'Microsoft.Authorization/roleAssignments@202
 output acrName string = acrname
 output appServiceName string = app.name
 output appConfigName string = appconfig.name
-output appConfigEndpoint string = appconfig.properties.endpoint
