@@ -121,3 +121,4 @@ resource secretReaderAssignment 'Microsoft.Authorization/roleAssignments@2022-04
 
 output acrName string = acrname
 output appServiceName string = app.name
+output keyVaultName string = kvname

@@ -20,5 +20,9 @@ appServiceName=$(jq --raw-output ".appServiceName.value" outputs.json)
 echo "Restarting app '$appServiceName'"
 az webapp restart --name $appServiceName --resource-group $groupName
 
+# set secret for testing
+keyVaultName=$(jq --raw-output ".keyVaultName.value" outputs.json)
+az keyvault secret set --name infra-default --value infra_value --vault-name $keyVaultName
+
 # save into github variables
 echo "url=https://$appServiceName.azurewebsites.net" >> $GITHUB_OUTPUT
