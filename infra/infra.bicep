@@ -106,13 +106,13 @@ resource kv 'Microsoft.KeyVault/vaults@2025-05-01' = {
   }
 }
 
-resource defaultkv 'Microsoft.KeyVault/vaults/secrets@2025-05-01' = {
-  parent: kv
-  name: 'infra_default'
-  properties: {
-    value: 'infra_value'
-  }
-}
+// resource defaultkv 'Microsoft.KeyVault/vaults/secrets@2025-05-01' = {
+//   parent: kv
+//   name: 'infra_default'
+//   properties: {
+//     value: 'infra_value'
+//   }
+// }
 
 resource secretReaderAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
   name: guid(kv.id, app.id, 'secretreader')
