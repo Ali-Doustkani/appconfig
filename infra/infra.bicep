@@ -111,7 +111,6 @@ resource defaultkv 'Microsoft.KeyVault/vaults/secrets@2025-05-01' = {
   name: 'infra_default'
   properties: {
     value: 'infra_value'
-    contentType: 'text/plain'
   }
 }
 
