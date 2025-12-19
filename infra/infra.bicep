@@ -4,7 +4,7 @@ var configname = 'alido${resourceGroup().name}config'
 var kvname = 'alido${resourceGroup().name}kv'
 
 resource plan 'Microsoft.Web/serverfarms@2023-12-01' = {
-  name: 'linux'
+  name: 'alido${resourceGroup().name}sp'
   location: resourceGroup().location
   sku: {
     name: 'B1'
