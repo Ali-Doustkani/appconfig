@@ -14,7 +14,7 @@ az deployment group create \
 
 # assign secret officer to pipeline service principal to set test secret
 keyVaultName=$(jq --raw-output ".keyVaultName.value" outputs.json)
-pipelineObjectId=$(az ad sp show --id "$AZURE_CLIENT_ID" --query id -o tsv)
+pipelineObjectId="2aa460f0-b63a-465d-8d73-a2662efc80e2"
 az role assignment create \
   --assignee-object-id "$pipelineObjectId" \
   --assignee-principal-type ServicePrincipal \
