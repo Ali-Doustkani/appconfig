@@ -12,6 +12,15 @@ az deployment group create \
 --query "properties.outputs" \
 --output json > outputs.json
 
+# assign secret officer to pipeline service principal to set test secret
+keyVaultName=$(jq --raw-output ".keyVaultName.value" outputs.json)
+pipelineObjectId=$(az ad sp show --id "$AZURE_CLIENT_ID" --query id -o tsv)
+az role assignment create \
+  --assignee-object-id "$pipelineObjectId" \
+  --assignee-principal-type ServicePrincipal \
+  --role "Key Vault Secrets Officer" \
+  --scope "/subscriptions/$(az account show --query id -o tsv)/resourceGroups/$groupName/providers/Microsoft.KeyVault/vaults/$keyVaultName"
+
 acrName=$(jq --raw-output ".acrName.value" outputs.json)
 echo "Importing test image into registry '$acrName'"
 az acr import --name $acrName --source ghcr.io/ali-doustkani/testapp:latest --image testapp:testversion
@@ -21,7 +30,6 @@ echo "Restarting app '$appServiceName'"
 az webapp restart --name $appServiceName --resource-group $groupName
 
 # set secret for testing
-keyVaultName=$(jq --raw-output ".keyVaultName.value" outputs.json)
 az keyvault secret set --name infra-default --value infra_value --vault-name $keyVaultName
 
 # save into github variables
