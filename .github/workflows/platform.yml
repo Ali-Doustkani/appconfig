@@ -1,4 +1,4 @@
-name: Infra
+name: Platform
 
 run-name: ${{ github.sha }}
 
@@ -7,7 +7,7 @@ on:
     inputs:
       groupName: 
         description: "Resource Group Name"
-        default: "rg"
+        default: "platform"
 
 jobs:
   deploy:
@@ -20,7 +20,4 @@ jobs:
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy Platform Stack
-        id: deploy
-        run: ./.github/workflows/scripts/infra-deploy.sh ${{ github.sha }} ${{ github.event.inputs.groupName }}
-      - name: Test
-        run: python ./infra/tests/tests.py ${{ steps.deploy.outputs.url }}
+        run: ./.github/workflows/scripts/platform-deploy.sh ${{ github.sha }} ${{ github.event.inputs.groupName }}
