@@ -21,6 +21,6 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Deploy Platform Stack
         id: deploy
-        run: ./.github/workflows/scripts/infra-deploy.sh ${{ github.sha }} ${{ github.event.inputs.groupName }}
+        run: ./.github/workflows/scripts/infra-stack-app.sh ${{ github.sha }} ${{ github.event.inputs.groupName }}
       - name: Test
         run: python ./infra/tests/tests.py ${{ steps.deploy.outputs.url }}
