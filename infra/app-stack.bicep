@@ -1,4 +1,6 @@
-var acrname = 'alido${resourceGroup().name}acr'
+param acrrg string
+param acrname string
+
 var appname = 'alido${resourceGroup().name}app'
 var configname = 'alido${resourceGroup().name}config'
 var kvname = 'alido${resourceGroup().name}kv'
@@ -21,7 +23,7 @@ resource app 'Microsoft.Web/sites@2025-03-01' = {
   properties: {
     serverFarmId: plan.id
     siteConfig: {
-      linuxFxVersion: 'DOCKER|${acrname}.azurecr.io/testapp:testversion' // this is refering to container registry
+      linuxFxVersion: 'DOCKER|alidoplatformacr.azurecr.io/testapp:testversion' // this is refering to container registry
       acrUseManagedIdentityCreds: true // this means the web app should use system assigned identity for authentication. An AcrPull role is assigned automatically in ACR with this.
       appSettings: [
         {
@@ -37,27 +39,6 @@ resource app 'Microsoft.Web/sites@2025-03-01' = {
   }
   identity: {
     type: 'SystemAssigned'
-  }
-}
-
-resource acr 'Microsoft.ContainerRegistry/registries@2025-11-01' = {
-  name: acrname
-  location: resourceGroup().location
-  sku: {
-    name: 'Basic'
-  }
-}
-
-resource acrPullAssignment 'Microsoft.Authorization/roleAssignments@2022-04-01' = {
-  name: guid(acr.id, app.id, 'acrpull')
-  scope: acr
-  properties: {
-    roleDefinitionId: subscriptionResourceId(
-      'Microsoft.Authorization/roleDefinitions',
-      '7f951dda-4ed3-4680-a7ca-43fe172d538d'
-    )
-    principalId: app.identity.principalId
-    principalType: 'ServicePrincipal'
   }
 }
 
@@ -116,6 +97,16 @@ resource secretReaderAssignment 'Microsoft.Authorization/roleAssignments@2022-04
     )
     principalId: app.identity.principalId
     principalType: 'ServicePrincipal'
+  }
+}
+
+module acrRbac './app-stack-rbac.bicep' = {
+  name: 'acr-rbac22'
+  scope: resourceGroup(acrrg) // the scope 
+  params: {
+    appId: app.id
+    acrName: acrname
+    principalId: app.identity.principalId
   }
 }
 
