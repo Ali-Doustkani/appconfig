@@ -1,4 +1,4 @@
-name: TestApp
+name: Infra Test Fixture
 
 run-name: ${{ github.sha }}
 on:

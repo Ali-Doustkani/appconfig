@@ -1,4 +1,4 @@
-name: Cleanup
+name: Infra Cleanup
 on:
   schedule:
     - cron: "0 0 * * *"
