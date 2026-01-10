@@ -30,6 +30,7 @@ echo "Restarting app '$appServiceName'"
 az webapp restart --name $appServiceName --resource-group $groupName
 
 # set secret for testing
+echo "Setting secret for testing"
 az keyvault secret set --name infra-default --value infra_value --vault-name $keyVaultName
 
 # save into github variables
