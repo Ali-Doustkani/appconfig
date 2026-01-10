@@ -14,3 +14,9 @@ jobs:
         uses: azure/login@v2
         with: 
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: ACR Login
+        run: az acr login --name alidotestacr-cdhre2gdg0c2hjam.azurecr.io
+      - name: Build and push image
+        run: |
+          docker build -t alidotestacr-cdhre2gdg0c2hjam.azurecr.io/myapp:${{ github.sha }} .
+          docker push alidotestacr-cdhre2gdg0c2hjam.azurecr.io/myapp:${{ github.sha }}
