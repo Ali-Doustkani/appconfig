@@ -15,4 +15,4 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - name: Remove All Resources
-        run: ./.github/workflows/scripts/remove-all.sh
+        run: ./.github/workflows/scripts/infra-cleanup.sh
