@@ -30,4 +30,4 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-          pytest ./infra/tests/tests.py --url https://alidorg4app.azurewebsites.net/ # ${{ steps.deploy.outputs.url }}
+          pytest ./infra/tests/tests.py --url ${{ steps.deploy.outputs.url }} --reruns 5 --rerun-delay 3
