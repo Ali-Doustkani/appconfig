@@ -25,7 +25,9 @@ az role assignment create \
 
 acrName=$(jq --raw-output ".acrName.value" outputs.json)
 echo "Importing test image into registry '$acrName'"
-az acr import --name $acrName --source ghcr.io/ali-doustkani/testapp:latest --image testapp:testversion
+# check if a repository already exists, if not, then import it
+az acr repository show-tags --name $acrName --repository testapp --query "[?@=='testversion']" -o tsv | grep -q . \
+|| az acr import --name $acrName --source ghcr.io/ali-doustkani/testapp:latest --image testapp:testversion
 
 appServiceName=$(jq --raw-output ".appServiceName.value" outputs.json)
 echo "Restarting app '$appServiceName'"
