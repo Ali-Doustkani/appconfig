@@ -22,7 +22,12 @@ jobs:
       # - name: Deploy App Stack
       #   id: deploy
       #   run: ./.github/workflows/scripts/infra-stack-app.sh ${{ github.sha }} ${{ github.event.inputs.groupName }}
-      - name: Setup Python Env
-        run: sudo apt update && sudo apt install -y python3-venv && python3 -m venv .venv && source .venv/bin/activate && pip install -r requirements.txt
+      - name: Install Python venv
+        run: sudo apt update && sudo apt install -y python3-venv
+      - name: Setup Python venv
+        run: |
+          python3 -m venv .venv
+          source .venv/bin/activate
+          pip install -r requirements.txt
       - name: Test
         run: pytest ./infra/tests --url https://alidorg4app.azurewebsites.net/ # ${{ steps.deploy.outputs.url }}
