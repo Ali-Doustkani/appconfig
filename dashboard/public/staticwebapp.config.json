@@ -1,10 +1,5 @@
 {
-  "routes": [
-    {
-      "route": "/instances*",
-      "allowedRoles": ["authenticated"]
-    }
-  ],
+  "routes": [],
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": [
