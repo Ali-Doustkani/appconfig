@@ -1,7 +1,7 @@
 var builder = WebApplication.CreateBuilder();
 var app = builder.Build();
 
-app.MapGet("/health", ()=> new
+app.MapGet("/api/health", ()=> new
 {
     status = "healthy",
     timestamp = DateTime.UtcNow,
